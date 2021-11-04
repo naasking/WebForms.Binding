@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding.cs" />
-    <Compile Include="InputName.cs" />
+    <Compile Include="NameBinding.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

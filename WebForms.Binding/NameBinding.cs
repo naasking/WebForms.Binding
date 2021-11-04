@@ -31,6 +31,6 @@ namespace WebForms.Binding
         ///     &lt;input name="SomeProperty[3].SomeProperty" ... />
         /// </code>
         public static Input BindTo<T0, T1>(this T0 obj, Expression<Func<T0, T1>> prop) =>
-            Input.Name(obj, prop);
+            Input.Bind(obj, prop);
     }
 }

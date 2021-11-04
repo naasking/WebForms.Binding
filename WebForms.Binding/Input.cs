@@ -106,7 +106,7 @@ namespace WebForms.Binding
         ///     &lt;input name="SomeProperty[3].SomeProperty" ... />
         /// </code>
         /// </remarks>
-        public static Input Name<T0, T1>(T0 obj, Expression<Func<T0, T1>> prop) =>
+        public static Input Bind<T0, T1>(T0 obj, Expression<Func<T0, T1>> prop) =>
             new Input { name = new System.Text.StringBuilder() }.Bind(prop.Body);
 
         Input Bind(Expression e)
