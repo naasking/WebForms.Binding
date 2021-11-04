@@ -25,7 +25,7 @@ I'll use the following view models in the examples below:
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public bool Present { get; set; }
+        public bool? Present { get; set; }
     }
 
 The code behind for the .aspx might look like:
@@ -62,15 +62,15 @@ pattern to work fairly well for most scenarios.
 We can bind to it as follows:
 
     <h1>My Presentation</h1>
-    <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model.PresentationDate?.ToString("yyyy-MM-dd") %>" /></div>
+    <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model.PresentationDate?.ToString("yyyy-MM-dd") %>" required /></div>
     <h2>Attendance</h2>
     <asp:Repeater runat="server" DataSource="<%# model.Attendance %>" ItemType="MyProject.RegistrationViewModel">
         <ItemTemplate>
             <label>
                 <input type="hidden" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Id) %>" value="<%# Item.Id %>" />
-                <input type="text" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Name) %>" value="<%# Item.Name %>" />
+                <input type="text" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Name) %>" value="<%# Item.Name %>" required />
                 <input type="checkbox" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Present) %>" value="<%# Item.Present %>"
-                    <%# Input.Checked(Item.Present) %> onchange="__doPostBack()" />
+                    <%# Input.Checked(Item.Present == true) %> onchange="__doPostBack()" />
             </label>
         </ItemTemplate>
     </asp:Repeater>
@@ -81,15 +81,15 @@ The low-level API provides maximum performance but is more verbose. Given the sa
 low-level API looks like:
 
     <h1>My Presentation</h1>
-    <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model?.ToString("yyyy-MM-dd") %>" /></div>
+    <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model?.ToString("yyyy-MM-dd") %>" required /></div>
     <h2>Attendance</h2>
     <asp:Repeater runat="server" DataSource="<%# model.Attendance %>" ItemType="MyProject.RegistrationViewModel">
         <ItemTemplate>
             <label>
                 <input type="hidden" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Id)] %>" value="<%# Item.Id %>" />
-                <input type="text" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Name)] %>" value="<%# Item.Name %>" />
+                <input type="text" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Name)] %>" value="<%# Item.Name %>" required />
                 <input type="checkbox" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Present)] %>" value="<%# Item.Present %>"
-                    <%# Input.Checked(Item.Present) %> onchange="__doPostBack()" />
+                    <%# Input.Checked(Item.Present == true) %> onchange="__doPostBack()" />
             </label>
         </ItemTemplate>
     </asp:Repeater>
