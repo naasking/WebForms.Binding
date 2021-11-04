@@ -1,13 +1,13 @@
 # WebForms.Binding
 
-This is a micro abstraction to enable full model binding with the old ASP.NET web forms,
+This is a tiny abstraction to enable full model binding with the old ASP.NET web forms,
 in case you're unfortunate enough to still be working with those.
 
 It provides a fast low-level interface for generating input names, and an easier high-level
 interface that's likely considerably slower.
 
 It's not quite as easy as model binding under MVC, but it at least enables you to use web forms as a templating
-language to enable better HTML and JavaScript integration.
+language for better HTML and JavaScript integration, and lets you get rid of all of that viewstate.
 
 # Example View Models
 
@@ -63,6 +63,7 @@ We can bind to it as follows:
 
     <h1>My Presentation</h1>
     <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model.PresentationDate?.ToString("yyyy-MM-dd") %>" required /></div>
+    
     <h2>Attendance</h2>
     <asp:Repeater runat="server" DataSource="<%# model.Attendance %>" ItemType="MyProject.RegistrationViewModel">
         <ItemTemplate>
@@ -81,7 +82,8 @@ The low-level API provides maximum performance but is more verbose. Given the sa
 low-level API looks like:
 
     <h1>My Presentation</h1>
-    <div><input name="<%# model.BindTo(x => x.PresentationDate) %>" type="datetime" value="<%# model?.ToString("yyyy-MM-dd") %>" required /></div>
+    <div><input name="<%# Input.Name[nameof(model.PresentationDate)] %>" type="datetime" value="<%# model?.ToString("yyyy-MM-dd") %>" required /></div>
+    
     <h2>Attendance</h2>
     <asp:Repeater runat="server" DataSource="<%# model.Attendance %>" ItemType="MyProject.RegistrationViewModel">
         <ItemTemplate>
