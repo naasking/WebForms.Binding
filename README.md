@@ -71,7 +71,7 @@ We can bind to it as follows:
                 <input type="hidden" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Id) %>" value="<%# Item.Id %>" />
                 <input type="text" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Name) %>" value="<%# Item.Name %>" required />
                 <input type="checkbox" name="<%# model.BindTo(x => x.Attendance[Container.ItemIndex].Present) %>" value="<%# Item.Present %>"
-                    <%# Input.Checked(Item.Present == true) %> onchange="__doPostBack()" />
+                    <%# Html.Checked(Item.Present == true) %> onchange="__doPostBack()" />
             </label>
         </ItemTemplate>
     </asp:Repeater>
@@ -91,7 +91,7 @@ low-level API looks like:
                 <input type="hidden" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Id)] %>" value="<%# Item.Id %>" />
                 <input type="text" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Name)] %>" value="<%# Item.Name %>" required />
                 <input type="checkbox" name="<%# Input.Name[nameof(model.Attendance)][Container.ItemIndex][nameof(ChildEntity.Present)] %>" value="<%# Item.Present %>"
-                    <%# Input.Checked(Item.Present == true) %> onchange="__doPostBack()" />
+                    <%# Html.Checked(Item.Present == true) %> onchange="__doPostBack()" />
             </label>
         </ItemTemplate>
     </asp:Repeater>
